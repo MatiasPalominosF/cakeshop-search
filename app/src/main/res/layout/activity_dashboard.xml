@@ -19,6 +19,7 @@
             android:id="@+id/txtSaludo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/thin"
@@ -32,6 +33,7 @@
             android:id="@+id/txtUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="11dp"
             android:fontFamily="@font/bold"
@@ -45,6 +47,7 @@
             android:id="@+id/imageMenu"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_menu"
@@ -91,6 +94,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:overScrollMode="never"
@@ -129,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/thin"
                     android:gravity="center"
-                    android:text="Tortas Montero"
+                    android:text="@string/tortas_montero"
                     android:textColor="@color/gray"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -225,7 +229,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/thin"
                     android:gravity="center"
-                    android:text="Las delicias"
+                    android:text="@string/las_delicias"
                     android:textColor="@color/gray"
                     android:textSize="20sp" />
             </LinearLayout>
@@ -272,7 +276,7 @@
                     android:layout_marginTop="20dp"
                     android:ellipsize="end"
                     android:maxLines="3"
-                    android:text="Mostrar texto sobre pedidos relevantes o alguna cosa así"
+                    android:text="@string/dumb_text"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     app:layout_constraintTop_toBottomOf="@id/textTrending" />
@@ -288,7 +292,8 @@
         app:itemIconSize="30dp"
         app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/navigation_menu"/>
+        app:menu="@menu/navigation_menu" />
+
     <View
         android:id="@+id/viewDivider"
         android:layout_width="match_parent"
@@ -298,6 +303,5 @@
 
         />
 
-    
 
 </androidx.constraintlayout.widget.ConstraintLayout>

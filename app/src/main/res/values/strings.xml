@@ -12,5 +12,8 @@
     <string name="favoritos">Favoritos</string>
     <string name="cuenta">Cuenta</string>
     <string name="configuracion">Configuración</string>
+    <string name="tortas_montero">Tortas Montero</string>
+    <string name="las_delicias">Las delicias</string>
+    <string name="dumb_text">Mostrar texto sobre pedidos relevantes o alguna cosa así</string>
 
 </resources>
