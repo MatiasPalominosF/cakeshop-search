@@ -2,5 +2,15 @@
     <string name="app_name">CakeShop Search</string>
     <string name="sincuenta">¿No tienes cuenta?</string>
     <string name="registrate">Regístrate</string>
+    <string name="hola">Hola</string>
+    <string name="miriam">Miriam</string>
+    <string name="buscar">Buscar</string>
+    <string name="pasteleria_amada">Amada JYM</string>
+    <string name="las_palmeras">Las palmeras</string>
+    <string name="tendencias">TENDENCIAS</string>
+    <string name="inicio">Inicio</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="cuenta">Cuenta</string>
+    <string name="configuracion">Configuración</string>
 
 </resources>

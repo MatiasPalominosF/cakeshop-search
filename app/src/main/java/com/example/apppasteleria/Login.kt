@@ -44,14 +44,15 @@ class Login : AppCompatActivity() {
                         action()
                     } else {
                         //progressBar.visibility = View.INVISIBLE
-                        Toast.makeText(this, "Error en la autenticación", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Correo/contraseña incorrecta", Toast.LENGTH_LONG)
+                            .show()
                     }
                 }
         }
     }
 
     private fun action() {
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, Dashboard::class.java))
     }
 
     private fun validarCamposInicioSesion(
