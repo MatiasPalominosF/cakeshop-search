@@ -16,8 +16,6 @@ class Login : AppCompatActivity() {
     private lateinit var progressBar: ProgressBar
     private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
-        getSupportActionBar()?.hide();
-        Thread.sleep(2000)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
@@ -73,5 +71,17 @@ class Login : AppCompatActivity() {
 
     fun registrarUsuario(view: View) {
         startActivity(Intent(this, Registro::class.java))
+        finish()
+    }
+
+    /**
+     * Método utilizado para que verifique si el usuario ya está logeado, si es true, lo manda
+     * directo a la pantalla dashboard.
+     */
+    override fun onStart() {
+        super.onStart()
+        if (auth.currentUser != null) {
+            action()
+        }
     }
 }
