@@ -1,74 +1,105 @@
 package com.example.apppasteleria
 
-import android.app.ProgressDialog
+
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
+import android.util.Patterns
 import android.view.View
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 
 class Registro : AppCompatActivity() {
 
     //Atributos para obtener datos del xml.
+    private lateinit var txtRut: EditText
     private lateinit var txtNombre: EditText
     private lateinit var txtApellido: EditText
     private lateinit var txtEmail: EditText
     private lateinit var txtContrasena: EditText
-    private lateinit var progressBar: ProgressBar
+    private lateinit var btnRegistro: Button
+
+    //Atributo añadir usuario
+    private val users = hashMapOf<String?, Any?>()
 
     //Atributos de Firebase.
-    private lateinit var dbReference: DatabaseReference
-    private lateinit var database: FirebaseDatabase
+    private lateinit var db: FirebaseFirestore
     private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registro)
+        this.txtRut = findViewById(R.id.txtRut)
         this.txtNombre = findViewById(R.id.txtNombre)
         this.txtApellido = findViewById(R.id.txtApellido)
         this.txtEmail = findViewById(R.id.txtEmail)
         this.txtContrasena = findViewById(R.id.txtContrasena)
-        this.progressBar = ProgressBar(this)
-        //progressBar = findViewById(R.id.progressBar)
-        database = FirebaseDatabase.getInstance()
+        this.btnRegistro = findViewById(R.id.button2)
+
+
+        this.btnRegistro.setOnClickListener {
+            println("Holaaa")
+            crearNuevoUsuario()
+        }
+        //this.progressBar = ProgressBar(this)
+
+        //Atributos Firebase
+        db = FirebaseFirestore.getInstance()
         auth = FirebaseAuth.getInstance()
 
-        //Se obtiene la referencia de la BD para escribir en ella.
-        dbReference = database.reference.child("Usuario")
-    }
-
-    fun registrar(view: View) {
-        crearNuevoUsuario()
 
     }
 
     private fun crearNuevoUsuario() {
+        val rut: String = this.txtRut.text.toString()
         val nombre: String = this.txtNombre.text.toString()
         val apellido: String = this.txtApellido.text.toString()
         val email: String = this.txtEmail.text.toString()
         val contrasena: String = this.txtContrasena.text.toString()
 
-        if (validarCamposRegistroUsuario(nombre, apellido, email, contrasena)) {
-            progressBar.visibility = View.VISIBLE
-            auth.createUserWithEmailAndPassword(email, contrasena)
-                .addOnCompleteListener(this) { task ->
-                    if (task.isComplete) {
-                        val user: FirebaseUser? = auth.currentUser
-                        verifyEmail(user)
+        users["rut"] = rut
+        users["nombre"] = nombre
+        users["apellido"] = apellido
+        users["email"] = email
+        users["contrasena"] = contrasena
 
-                        val userBD = dbReference.child(user?.uid!!)
+        if (isValidEmail(email)) {
+            if (validarCamposRegistroUsuario(rut, nombre, apellido, email, contrasena)) {
+                auth.createUserWithEmailAndPassword(email, contrasena)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isComplete) {
+                            val user: FirebaseUser? = auth.currentUser
+                            //Se envía mensaje de verificación al usuario.
+                            verifyEmail(user)
 
-                        userBD.child("Name").setValue(nombre)
-                        userBD.child("LastName").setValue(apellido)
-                        action()
+                            //Se obtiene el UID de usuario para guardarlo en la BD como id.
+                            val uidUser = user?.uid.toString()
+                            val userBD = db.collection("usuarios")
+
+                            userBD.document(uidUser).set(users).addOnSuccessListener {
+                                Toast.makeText(
+                                    this,
+                                    "Usuario agregado correctamente",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                                action()
+                            }.addOnFailureListener {
+                                println("Error en agregar usuario: $it")
+                            }
+
+                            action()
+                        }
                     }
-                }
+            }
+        } else {
+            Toast.makeText(this, "Correo inválido", Toast.LENGTH_LONG)
+                .show()
         }
     }
 
@@ -84,36 +115,62 @@ class Registro : AppCompatActivity() {
     }
 
     private fun action() {
-        startActivity(Intent(this, Login::class.java))
+        startActivity(Intent(this, Dashboard::class.java))
+        finish()
     }
 
     private fun validarCamposRegistroUsuario(
+        rut: String,
         nombre: String,
         apellido: String,
         correo: String,
         contrasena: String
     ): Boolean {
-        if (correo.isEmpty()) {
-            this.txtEmail.setError("Campo requerido")
-            this.txtEmail.requestFocus()
-            return false
-        } else if (nombre.isEmpty()) {
-            this.txtNombre.setError("Campo requerido")
-            this.txtNombre.requestFocus()
-            return false
-        } else if (contrasena.isEmpty()) {
-            this.txtContrasena.setError("Campo requerido")
-            this.txtContrasena.requestFocus()
-            return false
-        } else if (apellido.isEmpty()) {
-            this.txtApellido.setError("Campo requerido")
-            this.txtApellido.requestFocus()
-            return false
+        when {
+            rut.isEmpty() -> {
+                this.txtRut.error = "Campo requerido"
+                this.txtRut.requestFocus()
+                return false
+            }
+            correo.isEmpty() -> {
+                this.txtEmail.error = "Campo requerido"
+                this.txtEmail.requestFocus()
+                return false
+            }
+            nombre.isEmpty() -> {
+                this.txtNombre.error = "Campo requerido"
+                this.txtNombre.requestFocus()
+                return false
+            }
+            contrasena.isEmpty() -> {
+                this.txtContrasena.error = "Campo requerido"
+                this.txtContrasena.requestFocus()
+                return false
+            }
+            apellido.isEmpty() -> {
+                this.txtApellido.error = "Campo requerido"
+                this.txtApellido.requestFocus()
+                return false
+            }
+            else -> return true
         }
-        return true
     }
 
     fun volverLogin(view: View) {
-        startActivity(Intent(this, Login::class.java))
+        onBackPressed()
     }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+    }
+
+    /**
+     * Método que valida si el email ingresado por el usuario es válido (se utiliza la clase
+     * Pattern de Java).
+     */
+    private fun isValidEmail(target: CharSequence?): Boolean {
+        return !TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches()
+    }
+
 }

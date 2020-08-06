@@ -37,7 +37,7 @@
             android:layout_marginLeft="4dp"
             android:layout_marginTop="11dp"
             android:fontFamily="@font/bold"
-            android:text="@string/miriam"
+            android:text=""
             android:textColor="@color/white"
             android:textSize="28sp"
             app:layout_constraintStart_toEndOf="@id/txtSaludo"
@@ -51,10 +51,10 @@
             android:layout_marginRight="15dp"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_menu"
-            android:tint="@color/white"
             app:layout_constraintBottom_toBottomOf="@id/txtSaludo"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/txtSaludo" />
+            app:layout_constraintTop_toTopOf="@id/txtSaludo"
+            app:tint="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -89,7 +89,7 @@
                 android:contentDescription="@string/app_name"
                 android:padding="6dp"
                 android:src="@drawable/ic_search"
-                android:tint="@color/colorPrimary" />
+                app:tint="@color/colorPrimary" />
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -265,10 +265,10 @@
                     android:layout_height="30dp"
                     android:contentDescription="@string/app_name"
                     android:src="@drawable/ic_favorite_border"
-                    android:tint="@color/white"
                     app:layout_constraintBottom_toBottomOf="@id/textTrending"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@id/textTrending" />
+                    app:layout_constraintTop_toTopOf="@id/textTrending"
+                    app:tint="@color/white" />
 
                 <TextView
                     android:layout_width="match_parent"
