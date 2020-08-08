@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginRight="50dp"
         android:text="CakeShop Search"
-        android:textColor="@color/colorBgEnd"
+        android:textColor="@color/colorPrimary"
         android:textSize="35sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:text="Iniciar"
-            android:textColor="@color/colorBgEnd"
+            android:textColor="@color/colorPrimary"
             android:textSize="24sp"
             android:textStyle="bold" />
     </RelativeLayout>
