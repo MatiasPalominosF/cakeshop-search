@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.apppasteleria.fragments.HomeFragment"
+        android:label="Menú">
+        <action
+            android:id="@+id/action_homeFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_myOrdersFragment"
+            app:destination="@id/myOrdersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_historyOrdersFragment"
+            app:destination="@id/historyOrdersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_saleFragment"
+            app:destination="@id/saleFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.apppasteleria.fragments.FavoriteFragment"
+        android:label="Favoritos"
+        tools:layout="@layout/fragment_favorite" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.apppasteleria.fragments.ProfileFragment"
+        android:label="Mi perfil"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.apppasteleria.fragments.SettingsFragment"
+        android:label="Configuraciones"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.example.apppasteleria.fragments.OrdersFragment"
+        android:label="Realizar pedido"
+        tools:layout="@layout/fragment_orders" />
+    <fragment
+        android:id="@+id/myOrdersFragment"
+        android:name="com.example.apppasteleria.fragments.MyOrdersFragment"
+        android:label="Mis pedidos" />
+    <fragment
+        android:id="@+id/historyOrdersFragment"
+        android:name="com.example.apppasteleria.fragments.HistoryOrdersFragment"
+        android:label="Historial de pedidos" />
+    <fragment
+        android:id="@+id/saleFragment"
+        android:name="com.example.apppasteleria.fragments.SaleFragment"
+        android:label="fragment_sale"
+        tools:layout="@layout/fragment_sale" />
+</navigation>

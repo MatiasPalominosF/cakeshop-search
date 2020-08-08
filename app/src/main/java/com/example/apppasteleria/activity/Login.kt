@@ -1,13 +1,14 @@
-package com.example.apppasteleria
+package com.example.apppasteleria.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Patterns
 import android.view.View
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.example.apppasteleria.R
 import com.google.firebase.auth.FirebaseAuth
 
 class Login : AppCompatActivity() {
@@ -74,7 +75,10 @@ class Login : AppCompatActivity() {
 
     fun registrarUsuario(view: View) {
         startActivity(Intent(this, Registro::class.java))
-        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left)
+        overridePendingTransition(
+            R.anim.slide_from_right,
+            R.anim.slide_to_left
+        )
         //finish()
     }
 

@@ -15,5 +15,7 @@
     <string name="tortas_montero">Tortas Montero</string>
     <string name="las_delicias">Las delicias</string>
     <string name="dumb_text">Mostrar texto sobre pedidos relevantes o alguna cosa así</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

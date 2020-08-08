@@ -1,13 +1,17 @@
-package com.example.apppasteleria
+package com.example.apppasteleria.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupWithNavController
+import com.example.apppasteleria.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_dashboard.*
 
 
 class Dashboard : AppCompatActivity() {
@@ -21,19 +25,22 @@ class Dashboard : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_dashboard)
 
+        val navController: NavController = findNavController(R.id.nav_host_fragment)
+        bottomNavigationView.setupWithNavController(navController)
+
+        //NavigationUI.setupWithNavController(bottomNavigationView, navController)
+
         //Se inicializan las variables obtenidas del XML.
-        this.mTxtUsuario = findViewById(R.id.txtUsuario)
+        //this.mTxtUsuario = findViewById(R.id.txtUsuario)
         //Se inicializan las varibles de Firebase.
         this.auth = FirebaseAuth.getInstance()
         this.db = FirebaseFirestore.getInstance()
-        cargarDatos()
+        //cargarDatos()
 
 
     }
-
 
     private fun cargarDatos() {
         val docRef = db.collection("usuarios").document(auth.uid.toString())

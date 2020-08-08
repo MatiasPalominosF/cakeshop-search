@@ -1,4 +1,4 @@
-package com.example.apppasteleria
+package com.example.apppasteleria.activity
 
 
 import android.content.Intent
@@ -8,9 +8,9 @@ import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.apppasteleria.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -162,7 +162,10 @@ class Registro : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right)
+        overridePendingTransition(
+            R.anim.slide_from_left,
+            R.anim.slide_to_right
+        )
     }
 
     /**
