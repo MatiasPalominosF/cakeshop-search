@@ -1,9 +1,15 @@
 package com.example.apppasteleria.data
 
+import android.util.Log
+import android.widget.Toast
 import com.example.apppasteleria.data.model.Order
 import com.example.apppasteleria.vo.Resource
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 
 class DataSource {
+
+    //val generateOrdersList = Resource.Success()
     val generateOrdersList = Resource.Success(
         listOf(
             Order(
@@ -15,7 +21,7 @@ class DataSource {
             ),
             Order(
                 "https://www.mozart.cl/wp-content/uploads/2020/05/tmp376.jpg",
-                "Torta de Milojas",
+                "Torta de Mil hojas",
                 "Pastelería Las Palmeras",
                 "Para 15 personas",
                 "15000"
@@ -29,4 +35,6 @@ class DataSource {
             )
         )
     )
+
+
 }
