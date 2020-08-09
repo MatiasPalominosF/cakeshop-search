@@ -23,7 +23,7 @@ class MyOrdersFragment : Fragment(), OrderAdapter.OnOrderClickListener {
     private lateinit var adapter: OrderAdapter
 
     //Creando instancia viewmodel
-    private val viewModel2 by lazy {
+    private val viewModel by lazy {
         ViewModelProvider(this).get(MainViewModel::class.java)
     }
 
@@ -44,15 +44,17 @@ class MyOrdersFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         setupRecyclerView()
         adapter = OrderAdapter(requireContext(), this)
         rv_orders.adapter = adapter
-        val dummyList = mutableListOf<Order>()
 
         observeData()
 
     }
 
     private fun observeData() {
-        viewModel2.fetchDataOrders().observe(viewLifecycleOwner, Observer {
+        shimmer_view_container.startShimmer()
+        viewModel.fetchDataOrders().observe(viewLifecycleOwner, Observer {
             Log.d("DATOS", "$it")
+            shimmer_view_container.stopShimmer()
+            shimmer_view_container.visibility = View.GONE
             adapter.setListData(it)
             adapter.notifyDataSetChanged()
         })

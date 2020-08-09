@@ -15,5 +15,6 @@
     <color name="colorBgStart">#ff9dbf</color>
     <color name="colorBgEnd">#fe1467</color>
     <color name="colorDivider">#D6D6D6</color>
+    <color name="placeholder_bg">#dddddd</color>
 
 </resources>

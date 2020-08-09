@@ -49,6 +49,7 @@ class OrderAdapter(
             Glide.with(context).load(order.image).centerCrop().into(itemView.img_order)
             itemView.txt_name_cake.text = order.name
             itemView.txt_name_cake_shop.text = order.nameCakeShop
+            itemView.txt_price.text = order.price
             itemView.setOnClickListener {
                 itemClickListener.onOrderClick(order)
             }
