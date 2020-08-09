@@ -11,7 +11,7 @@ import com.example.apppasteleria.base.BaseViewHolder
 import com.example.apppasteleria.data.model.Order
 import kotlinx.android.synthetic.main.order_row.view.*
 
-class MainAdapter(
+class OrderAdapter(
     private val context: Context,
     private val orderList: List<Order>,
     private val itemClickListener: OnOrderClickListener

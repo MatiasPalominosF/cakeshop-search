@@ -1,11 +1,11 @@
 package com.example.apppasteleria.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -15,13 +15,13 @@ import com.example.apppasteleria.R
 import com.example.apppasteleria.data.DataSource
 import com.example.apppasteleria.data.model.Order
 import com.example.apppasteleria.domain.RepoImpl
-import com.example.apppasteleria.fragments.adaptador.MainAdapter
+import com.example.apppasteleria.fragments.adaptador.OrderAdapter
 import com.example.apppasteleria.fragments.viewmodel.MainViewModel
 import com.example.apppasteleria.fragments.viewmodel.VMFactory
 import com.example.apppasteleria.vo.Resource
 import kotlinx.android.synthetic.main.fragment_my_orders.*
 
-class MyOrdersFragment : Fragment(), MainAdapter.OnOrderClickListener {
+class MyOrdersFragment : Fragment(), OrderAdapter.OnOrderClickListener {
 
     //Creando instancia view model
     private val viewModel by viewModels<MainViewModel> {
@@ -50,7 +50,7 @@ class MyOrdersFragment : Fragment(), MainAdapter.OnOrderClickListener {
                 }
                 is Resource.Success -> {
                     progress_bar.visibility = View.GONE
-                    rv_orders.adapter = MainAdapter(requireContext(), result.data, this)
+                    rv_orders.adapter = OrderAdapter(requireContext(), result.data, this)
                 }
                 is Resource.Failure -> {
                     progress_bar.visibility = View.GONE
