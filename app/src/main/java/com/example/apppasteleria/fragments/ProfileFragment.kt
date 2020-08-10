@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -48,10 +49,62 @@ class ProfileFragment : Fragment() {
         buscador?.visibility = View.GONE
         texto?.text = "Mi perfil"
 
+        val editar = view.findViewById<Button>(R.id.buttonEditarProfile)
+
+        editar.setOnClickListener {
+            val rut = txtRut.text.toString()
+            val nombre = txtNombre.text.toString()
+            val apellido = txtApellido.text.toString()
+            val correo = txtEmail.text.toString()
+            val contrasena = txtContrasena.text.toString()
+
+            editarPerfil(rut, nombre, apellido, correo, contrasena)
+
+        }
+
         //Se inicializan las varibles de Firebase.
         this.auth = FirebaseAuth.getInstance()
         this.db = FirebaseFirestore.getInstance()
         cargarDatos()
+
+    }
+
+    private fun editarPerfil(
+        rut: String,
+        nombre: String,
+        apellido: String,
+        correo: String,
+        contrasena: String
+    ) {
+        this.progressDialog = ProgressDialog(requireContext())
+        this.progressDialog.show()
+        this.progressDialog.setContentView(R.layout.progress_dialog)
+        this.progressDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        //Se obtiene la referencia de la base de datos.
+        val docRef = db.collection("usuarios").document(auth.uid.toString())
+
+        //Se accede a la base de datos y para actualizar el usuario.
+        docRef.update(
+            "rut",
+            rut,
+            "nombre",
+            nombre,
+            "apellido",
+            apellido,
+            "email",
+            correo,
+            "contrasena",
+            contrasena
+        ).addOnSuccessListener {
+            this.progressDialog.dismiss()
+            Toast.makeText(
+                requireContext(),
+                "Su perfil se ha editado correctamente.",
+                Toast.LENGTH_SHORT
+            ).show()
+        }.addOnFailureListener {
+            Toast.makeText(requireContext(), "Error al editar perfil", Toast.LENGTH_SHORT).show()
+        }
 
     }
 
