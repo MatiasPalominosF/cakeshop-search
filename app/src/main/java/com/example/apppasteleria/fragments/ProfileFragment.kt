@@ -1,5 +1,8 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.apppasteleria.fragments
 
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +23,7 @@ class ProfileFragment : Fragment() {
     //Se crean las variables de Firebase.
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +56,12 @@ class ProfileFragment : Fragment() {
     }
 
     private fun cargarDatos() {
+        this.progressDialog = ProgressDialog(requireContext())
+        this.progressDialog.show()
+        this.progressDialog.setContentView(R.layout.progress_dialog)
+        this.progressDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+
         val docRef = db.collection("usuarios").document(auth.uid.toString())
         docRef.get().addOnCompleteListener {
             if (it.isSuccessful) {
@@ -67,7 +77,7 @@ class ProfileFragment : Fragment() {
                     txtApellido.setText(apellido)
                     txtEmail.setText(correo)
                     txtContrasena.setText(contrasena)
-
+                    this.progressDialog.dismiss()
                 }
             } else {
                 Toast.makeText(
