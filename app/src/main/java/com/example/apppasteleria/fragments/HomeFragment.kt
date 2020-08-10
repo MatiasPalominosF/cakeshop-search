@@ -5,6 +5,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -29,6 +31,13 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val toolbar = activity?.findViewById<androidx.appcompat.widget.Toolbar>(R.id.appbar)
+        val texto = toolbar?.findViewById<TextView>(R.id.txt_saludo)
+        val buscador = toolbar?.findViewById<LinearLayout>(R.id.buscador)
+        val recuadro = toolbar?.findViewById<LinearLayout>(R.id.recuadro)
+        recuadro?.visibility = View.VISIBLE
+        buscador?.visibility = View.GONE
+        texto?.text = "Bienvenido"
 
         Log.d("NAVIGATION", "${findNavController().currentDestination}")
 

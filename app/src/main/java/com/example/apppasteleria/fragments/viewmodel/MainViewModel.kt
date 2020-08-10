@@ -8,10 +8,10 @@ import com.example.apppasteleria.domain.RepoImpl
 
 class MainViewModel : ViewModel() {
 
-    private val repo2 = RepoImpl()
+    private val repo = RepoImpl()
     fun fetchDataOrders(): LiveData<MutableList<Order>> {
         val mutableData = MutableLiveData<MutableList<Order>>()
-        repo2.getDataOrder().observeForever {
+        repo.getDataOrder().observeForever {
             mutableData.value = it
         }
         return mutableData

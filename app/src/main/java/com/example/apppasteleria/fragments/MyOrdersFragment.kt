@@ -5,6 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +18,7 @@ import com.example.apppasteleria.R
 import com.example.apppasteleria.data.model.Order
 import com.example.apppasteleria.fragments.adaptador.OrderAdapter
 import com.example.apppasteleria.fragments.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.fragment_my_orders.*
 
 class MyOrdersFragment : Fragment(), OrderAdapter.OnOrderClickListener {
@@ -41,6 +45,16 @@ class MyOrdersFragment : Fragment(), OrderAdapter.OnOrderClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val toolbar = activity?.findViewById<Toolbar>(R.id.appbar)
+        val texto = toolbar?.findViewById<TextView>(R.id.txt_saludo)
+        val buscador = toolbar?.findViewById<LinearLayout>(R.id.buscador)
+        val recuadro = toolbar?.findViewById<LinearLayout>(R.id.recuadro)
+        recuadro?.visibility = View.GONE
+        buscador?.visibility = View.VISIBLE
+        texto?.text = "Mis Pedidos"
+
+
         setupRecyclerView()
         adapter = OrderAdapter(requireContext(), this)
         rv_orders.adapter = adapter
