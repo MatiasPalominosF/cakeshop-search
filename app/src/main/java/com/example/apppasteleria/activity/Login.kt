@@ -1,5 +1,8 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.apppasteleria.activity
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
@@ -17,6 +20,7 @@ class Login : AppCompatActivity() {
     private lateinit var txtCorreo: EditText
     private lateinit var txtContrasena: EditText
     private lateinit var auth: FirebaseAuth
+    private lateinit var progressDialog: ProgressDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +43,15 @@ class Login : AppCompatActivity() {
         val correo: String = txtCorreo.text.toString()
         val contrasena: String = txtContrasena.text.toString()
 
+        this.progressDialog = ProgressDialog(this)
+        this.progressDialog.show()
+        this.progressDialog.setContentView(R.layout.progress_dialog)
+        this.progressDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         if (validarCamposInicioSesion(correo, contrasena)) {
             auth.signInWithEmailAndPassword(correo, contrasena)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
+                        this.progressDialog.dismiss()
                         action()
                     } else {
                         Toast.makeText(this, "Correo/contraseña incorrecta", Toast.LENGTH_LONG)
