@@ -5,22 +5,40 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.apppasteleria.data.model.Order
 import com.example.apppasteleria.data.model.Pasteleria
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
 class RepoImpl : Repo {
 
     override fun getDataOrder(): LiveData<MutableList<Order>> {
+        var auth: FirebaseAuth = FirebaseAuth.getInstance()
         val mutableData = MutableLiveData<MutableList<Order>>()
         FirebaseFirestore.getInstance().collection("pedidos").get().addOnSuccessListener { result ->
             val listData = mutableListOf<Order>()
             for (document in result) {
+                Log.d("DOCUMENTO", "ESTO VIENE AHORA: ${document.data}")
+                Log.d("UID", "ESTO TIENE EL UID ACA: ${auth.uid}")
+                val uid = document.getString("uid")
                 val image = document.getString("image")
                 val name = document.getString("name")
                 val nameCakeShop = document.getString("nameCakeShop")
                 val description = document.getString("description")
                 val price = document.getString("price")
-                val order = Order(image!!, name!!, nameCakeShop!!, description!!, price!!)
-                listData.add(order)
+                val quantity = document.getString("quantity")
+                val order = Order(
+                    uid!!,
+                    image!!,
+                    name!!,
+                    nameCakeShop!!,
+                    description!!,
+                    price!!,
+                    quantity!!
+                )
+                if (uid == auth.uid.toString()) {
+                    println("ENTRÓ")
+                    listData.add(order)
+                }
+
             }
             mutableData.value = listData
         }

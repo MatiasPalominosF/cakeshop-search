@@ -48,6 +48,7 @@ class OrderDetailFragment : Fragment() {
         txtProducto.text = order.name
         txtPrecio.text = order.price
         txtDescripcion.text = order.description
+        txtCantidad.text = order.quantity
     }
 
 }

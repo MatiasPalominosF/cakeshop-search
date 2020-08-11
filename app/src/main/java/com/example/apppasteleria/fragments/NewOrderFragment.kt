@@ -208,7 +208,7 @@ class NewOrderFragment : Fragment() {
                 "Pedido agregado correctamente",
                 Toast.LENGTH_LONG
             ).show()
-            findNavController().navigate(R.id.action_newOrderFragment_to_pasteleriasFragment)
+            findNavController().navigate(R.id.pasteleriasFragment)
         }
 
 
