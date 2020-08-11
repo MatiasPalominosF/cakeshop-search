@@ -20,7 +20,7 @@
             app:destination="@id/settingsFragment" />
         <action
             android:id="@+id/action_homeFragment_to_ordersFragment"
-            app:destination="@id/ordersFragment" />
+            app:destination="@id/pasteleriasFragment" />
         <action
             android:id="@+id/action_homeFragment_to_myOrdersFragment"
             app:destination="@id/myOrdersFragment" />
@@ -47,13 +47,17 @@
         android:label="Configuraciones"
         tools:layout="@layout/fragment_settings" />
     <fragment
-        android:id="@+id/ordersFragment"
-        android:name="com.example.apppasteleria.fragments.OrdersFragment"
+        android:id="@+id/pasteleriasFragment"
+        android:name="com.example.apppasteleria.fragments.PasteleriasFragment"
         android:label="Realizar pedido"
-        tools:layout="@layout/fragment_orders" >
+        tools:layout="@layout/fragment_pastelerias" >
         <action
             android:id="@+id/action_ordersFragment_to_newOrderFragment"
-            app:destination="@id/newOrderFragment" />
+            app:destination="@id/newOrderFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/myOrdersFragment"
@@ -61,7 +65,11 @@
         android:label="Mis pedidos" >
         <action
             android:id="@+id/action_myOrdersFragment_to_orderDetailFragment"
-            app:destination="@id/orderDetailFragment" />
+            app:destination="@id/orderDetailFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/historyOrdersFragment"
@@ -76,7 +84,15 @@
         android:id="@+id/newOrderFragment"
         android:name="com.example.apppasteleria.fragments.NewOrderFragment"
         android:label="fragment_new_order"
-        tools:layout="@layout/fragment_new_order" />
+        tools:layout="@layout/fragment_new_order" >
+        <action
+            android:id="@+id/action_newOrderFragment_to_pasteleriasFragment"
+            app:destination="@id/pasteleriasFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"
         android:name="com.example.apppasteleria.fragments.OrderDetailFragment"

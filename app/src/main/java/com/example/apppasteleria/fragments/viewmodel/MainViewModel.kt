@@ -1,18 +1,28 @@
 package com.example.apppasteleria.fragments.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.example.apppasteleria.domain.Repo
-import com.example.apppasteleria.vo.Resource
-import kotlinx.coroutines.Dispatchers
+import com.example.apppasteleria.data.model.Order
+import com.example.apppasteleria.data.model.Pasteleria
+import com.example.apppasteleria.domain.RepoImpl
 
-class MainViewModel(private val repo: Repo) : ViewModel() {
-    val fetchOrderList = liveData(Dispatchers.IO) {
-        emit(Resource.Loading())
-        try {
-            emit(repo.getOrdersList())
-        } catch (e: Exception) {
-            emit(Resource.Failure(e))
+class MainViewModel : ViewModel() {
+
+    private val repo = RepoImpl()
+    fun fetchDataOrders(): LiveData<MutableList<Order>> {
+        val mutableData = MutableLiveData<MutableList<Order>>()
+        repo.getDataOrder().observeForever {
+            mutableData.value = it
         }
+        return mutableData
+    }
+
+    fun fetchDataPastelerias(): LiveData<MutableList<Pasteleria>> {
+        val mutableData = MutableLiveData<MutableList<Pasteleria>>()
+        repo.getDataPastelerias().observeForever {
+            mutableData.value = it
+        }
+        return mutableData
     }
 }

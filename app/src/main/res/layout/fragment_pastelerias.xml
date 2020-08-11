@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.MyOrdersFragment">
+    tools:context=".fragments.PasteleriasFragment">
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmer_view_container"
@@ -13,7 +13,7 @@
         android:orientation="vertical"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/rv_orders">
+        app:layout_constraintTop_toTopOf="@id/rv_pastelerias">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,14 +29,11 @@
             <include layout="@layout/order_row_load" />
 
             <include layout="@layout/order_row_load" />
-
         </LinearLayout>
-
-
     </com.facebook.shimmer.ShimmerFrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_orders"
+        android:id="@+id/rv_pastelerias"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/viewDivider"
@@ -62,6 +59,4 @@
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView"
 
         />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
