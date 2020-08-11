@@ -14,9 +14,7 @@ class OrderDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        requireArguments().let {
-            order = it.getParcelable("order")!!
-        }
+
 
     }
 
@@ -24,7 +22,9 @@ class OrderDetailFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+        requireArguments().let {
+            order = it.getParcelable("order")!!
+        }
         return inflater.inflate(R.layout.fragment_order_detail, container, false)
     }
 

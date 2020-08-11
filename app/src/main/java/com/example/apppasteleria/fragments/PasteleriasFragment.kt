@@ -1,7 +1,6 @@
 package com.example.apppasteleria.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,16 +14,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.apppasteleria.R
-import com.example.apppasteleria.data.model.Order
-import com.example.apppasteleria.fragments.adaptador.OrderAdapter
+import com.example.apppasteleria.data.model.Pasteleria
+import com.example.apppasteleria.fragments.adaptador.PasteleriaAdapter
 import com.example.apppasteleria.fragments.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_dashboard.*
-import kotlinx.android.synthetic.main.fragment_my_orders.*
+import kotlinx.android.synthetic.main.fragment_pastelerias.*
 
-class MyOrdersFragment : Fragment(), OrderAdapter.OnOrderClickListener {
+class PasteleriasFragment : Fragment(), PasteleriaAdapter.OnDataClickListener {
 
-    //Creando instancia del adapter
-    private lateinit var adapter: OrderAdapter
+    //Se crea la instancia del adaptador de la pastelería
+    private lateinit var adapter: PasteleriaAdapter
 
     //Creando instancia viewmodel
     private val viewModel by lazy {
@@ -40,7 +38,7 @@ class MyOrdersFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_my_orders, container, false)
+        return inflater.inflate(R.layout.fragment_pastelerias, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,21 +50,29 @@ class MyOrdersFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         val recuadro = toolbar?.findViewById<LinearLayout>(R.id.recuadro)
         recuadro?.visibility = View.GONE
         buscador?.visibility = View.VISIBLE
-        texto?.text = "Mis Pedidos"
+        texto?.text = "Seleccionar pastelería"
 
 
         setupRecyclerView()
-        adapter = OrderAdapter(requireContext(), this)
-        rv_orders.adapter = adapter
-
         observeData()
 
     }
 
+    private fun setupRecyclerView() {
+        rv_pastelerias.layoutManager = LinearLayoutManager(requireContext())
+        rv_pastelerias.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            )
+        )
+        adapter = PasteleriaAdapter(requireContext(), this)
+        rv_pastelerias.adapter = adapter
+    }
+
     private fun observeData() {
         shimmer_view_container.startShimmer()
-        viewModel.fetchDataOrders().observe(viewLifecycleOwner, Observer {
-            Log.d("DATOS", "$it")
+        viewModel.fetchDataPastelerias().observe(viewLifecycleOwner, Observer {
             shimmer_view_container.stopShimmer()
             shimmer_view_container.visibility = View.GONE
             adapter.setListData(it)
@@ -74,22 +80,10 @@ class MyOrdersFragment : Fragment(), OrderAdapter.OnOrderClickListener {
         })
     }
 
-    private fun setupRecyclerView() {
-        rv_orders.layoutManager = LinearLayoutManager(requireContext())
-        rv_orders.addItemDecoration(
-            DividerItemDecoration(
-                requireContext(),
-                DividerItemDecoration.VERTICAL
-            )
-        )
-    }
-
-    override fun onOrderClick(order: Order) {
+    override fun onDataClick(pasteleria: Pasteleria) {
         val bundle = Bundle()
-        bundle.putParcelable("order", order)
-
-        Log.d("BUNDLE", "$bundle")
-        findNavController().navigate(R.id.action_myOrdersFragment_to_orderDetailFragment, bundle)
+        bundle.putParcelable("pasteleria", pasteleria)
+        findNavController().navigate(R.id.action_ordersFragment_to_newOrderFragment, bundle)
     }
 
 
