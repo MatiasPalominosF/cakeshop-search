@@ -84,7 +84,15 @@
         android:id="@+id/newOrderFragment"
         android:name="com.example.apppasteleria.fragments.NewOrderFragment"
         android:label="fragment_new_order"
-        tools:layout="@layout/fragment_new_order" />
+        tools:layout="@layout/fragment_new_order" >
+        <action
+            android:id="@+id/action_newOrderFragment_to_pasteleriasFragment"
+            app:destination="@id/pasteleriasFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
     <fragment
         android:id="@+id/orderDetailFragment"
         android:name="com.example.apppasteleria.fragments.OrderDetailFragment"
